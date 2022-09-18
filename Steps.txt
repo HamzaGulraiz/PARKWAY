@@ -1,0 +1,6 @@
+installation 
+
+Commands 
+yarn create expo-app PARKWAY
+
+yarn start # you can also use: yarn expo start
