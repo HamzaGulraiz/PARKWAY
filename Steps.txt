@@ -1,5 +1,8 @@
 installation 
 
+github lesson
+https://www.youtube.com/watch?v=3Tn58KQvWtU&t=174s
+
 Commands 
 yarn create expo-app PARKWAY -----
 
