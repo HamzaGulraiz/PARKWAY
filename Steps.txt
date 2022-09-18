@@ -1,6 +1,23 @@
 installation 
 
 Commands 
-yarn create expo-app PARKWAY
+yarn create expo-app PARKWAY -----
 
-yarn start # you can also use: yarn expo start
+you can also use: yarn expo start
+yarn start ---- 
+
+
+Tab navigation  
+yarn add @react-navigation/bottom-tabs -----
+
+stack nagivation
+yarn add @react-navigation/stack--------
+and
+yarn add @react-navigation/native------
+
+icons
+https://ionic.io/ionicons
+yarn add react-native-vector-icons-----
+
+safe area context 
+yarn add react-native-safe-area-context@4.3.1----
