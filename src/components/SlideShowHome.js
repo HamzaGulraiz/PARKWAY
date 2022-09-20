@@ -10,43 +10,43 @@ import {
 import SlideShowHomeModel from "./SlideShowHomeModel";
 
 const { width, heigth } = Dimensions.get("window");
-let flatList;
+// let flatList;
 
-function infiniteScroll(dataList) {
-  const numberOfData = dataList.length;
-  let scrollValue = 0,
-    scrolled = 0;
+// function infiniteScroll(dataList) {
+//   const numberOfData = dataList.length;
+//   let scrollValue = 0,
+//     scrolled = 0;
 
-  setInterval(function () {
-    scrolled++;
-    if (scrolled < numberOfData) scrollValue = scrollValue + width;
-    else {
-      scrollValue = 0;
-      scrolled = 0;
-    }
+//   setInterval(function () {
+//     scrolled++;
+//     if (scrolled < numberOfData) scrollValue = scrollValue + width;
+//     else {
+//       scrollValue = 0;
+//       scrolled = 0;
+//     }
 
-    this.flatList.scrollToOffset({ animated: true, offset: scrollValue });
-  }, 3000);
-}
+//     this.flatList.scrollToOffset({ animated: true, offset: scrollValue });
+//   }, 5000);
+// }
 
 const SlideShowHome = ({ data }) => {
   const scrollX = new Animated.Value(0);
   let position = Animated.divide(scrollX, width);
-  const [dataList, setDataList] = useState(data);
+  // const [dataList, setDataList] = useState(data);
 
-  useEffect(() => {
-    setDataList(data);
-    infiniteScroll(dataList);
-  });
+  // useEffect(() => {
+  //   setDataList(data);
+  //   infiniteScroll(dataList);
+  // });
 
   if (data && data.length) {
     return (
       <View>
         <FlatList
           data={data}
-          ref={(flatList) => {
-            this.flatList = flatList;
-          }}
+          // ref={(flatList) => {
+          //   this.flatList = flatList;
+          // }}
           keyExtractor={(item, index) => "key" + index}
           horizontal
           pagingEnabled
@@ -58,9 +58,10 @@ const SlideShowHome = ({ data }) => {
           renderItem={({ item }) => {
             return <SlideShowHomeModel item={item} />;
           }}
-          onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { x: scrollX } } },
-          ])}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
         />
 
         <View style={styles.dotView}>
