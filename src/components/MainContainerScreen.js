@@ -11,7 +11,7 @@ import Activity from "../screens/Activity";
 import Account from "../screens/Account";
 
 //screenNames
-const homeName = "Home";
+const homeName = "PARKWAY";
 const bookingName = "Booking";
 const activityName = "Activity";
 const accountName = "Account";
@@ -42,6 +42,7 @@ function MainContainerScreen() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
 
+          headerShown: false,
           tabBarActiveTintColor: "yellow",
           tabBarInactiveTintColor: "grey",
           tabBarLabelStyle: {

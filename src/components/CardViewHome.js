@@ -1,22 +1,24 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { IconButton } from "react-native-paper";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, FlatList, Animated } from "react-native";
+import CardViewHomeModel from "./CardViewHomeModel";
 
-const CardViewHome = () => {
+const CardViewHome = ({ data }) => {
   return (
-    <View style={styles.container}>
-      <IconButton icon="camera" size={80} onPress={() => {}} />
-      <IconButton icon="camera" size={80} onPress={() => {}} />
+    <View>
+      <FlatList
+        data={data}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => {
+          return <CardViewHomeModel item={item} />;
+        }}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
+  dotView: { flexDirection: "row", justifyContent: "center" },
 });
 
 export default CardViewHome;

@@ -1,44 +1,55 @@
 import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Divider } from "react-native-paper";
+import {
+  StyleSheet,
+  View,
+  Text,
+  StatusBar,
+  SafeAreaView,
+  SearchBar,
+} from "react-native";
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 
 import SlideShowHome from "../components/SlideShowHome";
 import { dummyData } from "../asset/SlideShowHomeData";
+import { cardData } from "../asset/CardViewHomeData";
 import CardViewHome from "../components/CardViewHome";
+
+const Separator = () => <View style={styles.separator} />;
 
 export default function Home({ navigation }) {
   return (
     <>
-      <View style={StyleSheet.container}>
-        <View style={StyleSheet.slider}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.slider}>
           <SlideShowHome data={dummyData} />
         </View>
-        <View style={StyleSheet.cardTitle}>
-          <Divider />
+        <View styles={styles.cardTitle}>
+          <Separator />
           <Text
             style={{
               fontWeight: "bold",
               fontSize: 20,
-              fontFamily: "Cochin",
-              justifyContent: "center",
-              alignItems: "center",
+              textAlign: "center",
             }}
           >
             Choose to Search Nearby
           </Text>
-          <Divider />
+          <Separator />
         </View>
-        <View style={StyleSheet.card}>
-          <CardViewHome />
+        <View style={styles.card}>
+          <CardViewHome data={cardData} />
         </View>
-      </View>
+        <Separator />
+      </SafeAreaView>
+      <ExpoStatusBar style="auto" />
     </>
   );
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: StatusBar.currentHeight,
     backgroundColor: "#fff",
   },
   slider: {
@@ -50,8 +61,11 @@ const style = StyleSheet.create({
     flex: "20",
   },
   card: {
-    flex: "40",
-    justifyContent: "center",
-    alignItems: "center",
+    flex: "30",
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

@@ -19,6 +19,7 @@ and
 yarn add @react-navigation/native------
 
 icons
+https://icons8.com/icons/set/bike
 https://ionic.io/ionicons
 yarn add react-native-vector-icons-----
 
