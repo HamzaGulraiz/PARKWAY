@@ -6,12 +6,12 @@ import {
   StatusBar,
   SafeAreaView,
   SearchBar,
+  Image,
 } from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 
 import SlideShowHome from "../components/SlideShowHome";
 import { dummyData } from "../asset/SlideShowHomeData";
-import { cardData } from "../asset/CardViewHomeData";
 import CardViewHome from "../components/CardViewHome";
 
 const Separator = () => <View style={styles.separator} />;
@@ -37,9 +37,8 @@ export default function Home({ navigation }) {
           <Separator />
         </View>
         <View style={styles.card}>
-          <CardViewHome data={cardData} />
+          <CardViewHome />
         </View>
-        <Separator />
       </SafeAreaView>
       <ExpoStatusBar style="auto" />
     </>
@@ -53,19 +52,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   slider: {
-    flex: "30%",
+    flex: 2,
     alignItems: "center",
     justifyContent: "center",
   },
   cardTitle: {
-    flex: "20",
+    flex: 2,
   },
   card: {
-    flex: "30",
+    flex: 3,
   },
   separator: {
     marginVertical: 8,
     borderBottomColor: "#737373",
     borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  card: {
+    flex: 2,
   },
 });
