@@ -5,11 +5,10 @@ import {
   Text,
   StatusBar,
   SafeAreaView,
-  SearchBar,
-  Image,
+  TouchableOpacity,
 } from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-
+import { Colors } from "../Utils/color";
 import SlideShowHome from "../components/SlideShowHome";
 import { dummyData } from "../asset/SlideShowHomeData";
 import CardViewHome from "../components/CardViewHome";
@@ -48,16 +47,17 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
-    backgroundColor: "#fff",
+
+    backgroundColor: Colors.screenBackGround,
   },
   slider: {
-    flex: 2,
+    marginTop: StatusBar.currentHeight,
+    flex: 3,
     alignItems: "center",
     justifyContent: "center",
   },
   cardTitle: {
-    flex: 2,
+    flex: 4,
   },
   card: {
     flex: 3,
@@ -67,7 +67,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#737373",
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
-  card: {
-    flex: 2,
+
+  button: {
+    alignItems: "center",
+    backgroundColor: Colors.buttonContainer,
+    padding: 10,
   },
 });

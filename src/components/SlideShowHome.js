@@ -79,7 +79,7 @@ const SlideShowHome = ({ data }) => {
                   height: 10,
                   width: 10,
                   backgroundColor: "#595959",
-                  margin: 8,
+                  margin: 5,
                   borderRadius: 5,
                 }}
               />

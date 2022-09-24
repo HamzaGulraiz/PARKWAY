@@ -3,6 +3,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Colors } from "../Utils/color";
 
 //screens
 import Home from "../screens/Home";
@@ -43,14 +44,15 @@ function MainContainerScreen() {
           },
 
           headerShown: false,
-          tabBarActiveTintColor: "yellow",
-          tabBarInactiveTintColor: "grey",
+          tabBarActiveTintColor: "#c1d5e0",
+          tabBarInactiveTintColor: "black",
           tabBarLabelStyle: {
             paddingBottom: 10,
             fontSize: 10,
           },
           tabBarStyle: [
             {
+              backgroundColor: Colors.bottomBavigation,
               display: "flex",
             },
             null,

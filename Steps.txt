@@ -1,3 +1,7 @@
+https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=CFD8DC&primary.text.color=000000&secondary.color=90A4AE
+
+Theme 
+
 installation 
 
 github lesson
@@ -49,3 +53,4 @@ yarn add react-native-gradient-card-view-----
 
 for some errors idk
 expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
