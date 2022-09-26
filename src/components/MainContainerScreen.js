@@ -21,50 +21,50 @@ const Tab = createBottomTabNavigator();
 
 function MainContainerScreen() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName={homeName}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            let rn = route.name;
+    // <NavigationContainer>
+    <Tab.Navigator
+      initialRouteName={homeName}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          let rn = route.name;
 
-            if (rn === homeName) {
-              iconName = focused ? "home" : "home-outline";
-            } else if (rn === bookingName) {
-              iconName = focused ? "pricetag" : "pricetag-outline";
-            } else if (rn === activityName) {
-              iconName = focused ? "reader" : "reader-outline";
-            } else if (rn === accountName) {
-              iconName = focused ? "person" : "person-outline";
-            }
+          if (rn === homeName) {
+            iconName = focused ? "home" : "home-outline";
+          } else if (rn === bookingName) {
+            iconName = focused ? "pricetag" : "pricetag-outline";
+          } else if (rn === activityName) {
+            iconName = focused ? "reader" : "reader-outline";
+          } else if (rn === accountName) {
+            iconName = focused ? "person" : "person-outline";
+          }
 
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+
+        headerShown: false,
+        tabBarActiveTintColor: "#c1d5e0",
+        tabBarInactiveTintColor: "black",
+        tabBarLabelStyle: {
+          paddingBottom: 10,
+          fontSize: 10,
+        },
+        tabBarStyle: [
+          {
+            backgroundColor: Colors.bottomBavigation,
+            display: "flex",
           },
-
-          headerShown: false,
-          tabBarActiveTintColor: "#c1d5e0",
-          tabBarInactiveTintColor: "black",
-          tabBarLabelStyle: {
-            paddingBottom: 10,
-            fontSize: 10,
-          },
-          tabBarStyle: [
-            {
-              backgroundColor: Colors.bottomBavigation,
-              display: "flex",
-            },
-            null,
-          ],
-        })}
-      >
-        <Tab.Screen name={homeName} component={Home} />
-        <Tab.Screen name={bookingName} component={Booking} />
-        <Tab.Screen name={activityName} component={Activity} />
-        <Tab.Screen name={accountName} component={Account} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          null,
+        ],
+      })}
+    >
+      <Tab.Screen name={homeName} component={Home} />
+      <Tab.Screen name={bookingName} component={Booking} />
+      <Tab.Screen name={activityName} component={Activity} />
+      <Tab.Screen name={accountName} component={Account} />
+    </Tab.Navigator>
+    // </NavigationContainer>
   );
 }
 

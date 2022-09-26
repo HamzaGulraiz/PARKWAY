@@ -1,14 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, SafeAreaView, TextInput } from "react-native";
 
 export default function Account({ navigation }) {
   return (
-    <View style={style.container}>
+    <View>
       <Text>helo</Text>
     </View>
   );
 }
 
-const style = StyleSheet.create({
-  container: { flex: 1, alignItems: "center", justifyContent: "center" },
-});
+const styles = StyleSheet.create({});

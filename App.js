@@ -1,8 +1,8 @@
 import React from "react";
-import MainContainerScreen from "./src/components/MainContainerScreen";
+import IntroLoginScreenContainer from "./src/components/IntroLoginScreenContainer";
 
 function App() {
-  return <MainContainerScreen />;
+  return <IntroLoginScreenContainer />;
 }
 
 export default App;
