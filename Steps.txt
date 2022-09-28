@@ -56,3 +56,11 @@ expo install react-native-gesture-handler react-native-reanimated react-native-s
 
 firebase databse
 expo install firebase --
+
+stack nagivation
+yarn add @react-navigation/native-stack--------
+
+
+maps
+npx expo install react-native-maps--
+

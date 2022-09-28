@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Colors } from "../Utils/color";
@@ -21,7 +20,6 @@ const Tab = createBottomTabNavigator();
 
 function MainContainerScreen() {
   return (
-    // <NavigationContainer>
     <Tab.Navigator
       initialRouteName={homeName}
       screenOptions={({ route }) => ({
@@ -64,7 +62,6 @@ function MainContainerScreen() {
       <Tab.Screen name={activityName} component={Activity} />
       <Tab.Screen name={accountName} component={Account} />
     </Tab.Navigator>
-    // </NavigationContainer>
   );
 }
 
