@@ -31,9 +31,12 @@ function MainContainerScreen() {
             iconName = focused ? "home" : "home-outline";
           } else if (rn === bookingName) {
             iconName = focused ? "pricetag" : "pricetag-outline";
-          } else if (rn === activityName) {
-            iconName = focused ? "reader" : "reader-outline";
-          } else if (rn === accountName) {
+          }
+
+          // else if (rn === activityName) {
+          //   iconName = focused ? "reader" : "reader-outline";
+          // }
+          else if (rn === accountName) {
             iconName = focused ? "person" : "person-outline";
           }
 
@@ -59,7 +62,9 @@ function MainContainerScreen() {
     >
       <Tab.Screen name={homeName} component={Home} />
       <Tab.Screen name={bookingName} component={Booking} />
-      <Tab.Screen name={activityName} component={Activity} />
+
+      {/* <Tab.Screen name={activityName} component={Activity} /> */}
+
       <Tab.Screen name={accountName} component={Account} />
     </Tab.Navigator>
   );

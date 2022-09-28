@@ -50,7 +50,7 @@ export default function Home({ navigation }) {
               }}
             >
               <Ionicons name="search-outline" size={16} color="black" />
-              <Text style={{ fontSize: 15, marginLeft: 5 }}>Search</Text>
+              <Text style={{ fontSize: 15, marginLeft: 10 }}>Search</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.mapContainer}>
