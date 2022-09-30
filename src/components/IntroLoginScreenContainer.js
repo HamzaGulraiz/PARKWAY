@@ -11,6 +11,7 @@ import MainContainerScreen from "../components/MainContainerScreen";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import RestorePassword from "../screens/RestorePassword";
 import SearchScreen from "../screens/SearchScreen";
+import CardViewHome from "./CardViewHome";
 
 const Stack = createNativeStackNavigator();
 

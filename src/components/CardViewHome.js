@@ -1,36 +1,42 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const CardViewHome = ({ item }) => {
+function CardViewHome() {
+  const navigation = useNavigation();
   return (
     <View style={styles.cardViewContainer}>
-      <View style={styles.cardView}>
+      <TouchableOpacity
+        style={styles.cardView}
+        onPress={() => {
+          navigation.navigate("SearchScreen");
+        }}
+      >
         <Image style={styles.image} source={require("../asset/car.png")} />
-        {/* <View style={styles.textView}>
-          <Text style={styles.itemTitle}>Car</Text>
-        </View> */}
-      </View>
-      <View style={styles.cardView}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.cardView}
+        onPress={() => {
+          navigation.navigate("SearchScreen");
+        }}
+      >
         <Image
           style={styles.image}
           source={require("../asset/electric-motor.png")}
         />
-        {/* <View style={styles.textView}>
-          <Text style={styles.itemTitle}>Bike</Text>
-        </View> */}
-      </View>
+      </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   cardViewContainer: {
     flex: 1,
     flexDirection: "row",
+    justifyContent: "space-around",
   },
   cardView: {
-    flex: 1,
-    width: 80,
+    width: 140,
     height: 80,
     backgroundColor: "#62757f",
     alignItems: "center",

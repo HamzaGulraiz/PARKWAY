@@ -9,7 +9,11 @@ function SearchScreen() {
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.searchView}>
-          <Searchbar style={styles.searchBar} placeholder="Search" />
+          <Searchbar
+            style={styles.searchBar}
+            placeholder="Search"
+            autoFocus={true}
+          />
         </View>
       </SafeAreaView>
       <ExpoStatusBar style="auto" />
