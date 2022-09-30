@@ -64,3 +64,6 @@ yarn add @react-navigation/native-stack--------
 maps
 npx expo install react-native-maps--
 
+1/10/2022
+new 
+npx expo install react-native@0.69.6----

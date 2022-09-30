@@ -52,7 +52,18 @@ export default function Home({ navigation }) {
               <Ionicons name="search-outline" size={16} color="black" />
               <Text style={{ fontSize: 15, marginLeft: 10 }}>Search</Text>
             </TouchableOpacity>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 20,
+                textAlign: "center",
+                marginTop: 10,
+              }}
+            >
+              Choose to Search Nearby
+            </Text>
           </View>
+
           <View style={styles.mapContainer}>
             <MapView style={styles.map} />
           </View>
@@ -93,11 +104,11 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   mapContainer: {
-    backgroundColor: "#9ea7aa",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
     margin: 20,
-    padding: 20,
+    padding: 10,
   },
   map: {
     width: "100%",

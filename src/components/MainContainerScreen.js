@@ -48,7 +48,7 @@ function MainContainerScreen() {
         tabBarActiveTintColor: "#c1d5e0",
         tabBarInactiveTintColor: "black",
         tabBarLabelStyle: {
-          paddingBottom: 10,
+          paddingBottom: 4,
           fontSize: 10,
         },
         tabBarStyle: [

@@ -32,7 +32,12 @@ export default function Account({ navigation }) {
         <Separator />
         <ScrollView>
           <View style={styles.list}>
-            <TouchableOpacity style={styles.listButton}>
+            <TouchableOpacity
+              style={styles.listButton}
+              onPress={() => {
+                navigation.navigate("PersonalInfo");
+              }}
+            >
               <Ionicons name="person" size={16} color="black" />
               <Text style={styles.listText}>Personal Information</Text>
             </TouchableOpacity>

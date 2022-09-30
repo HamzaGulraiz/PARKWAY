@@ -1,8 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Colors } from "../Utils/color";
 import { Searchbar } from "react-native-paper";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 function SearchScreen() {
   return (
@@ -14,6 +22,38 @@ function SearchScreen() {
             placeholder="Search"
             autoFocus={true}
           />
+        </View>
+        <View style={styles.list}>
+          <TouchableOpacity
+            style={styles.listButton}
+            onPress={() => {
+              // navigation.navigate("PersonalInfo");
+            }}
+          >
+            <Ionicons name="time" size={16} color="black" />
+            <Text style={styles.listText}>Saved Places</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.listText}>Recent</Text>
+        <View style={styles.list}>
+          <TouchableOpacity
+            style={styles.listButton}
+            onPress={() => {
+              // navigation.navigate("PersonalInfo");
+            }}
+          >
+            <Ionicons name="time" size={16} color="black" />
+            <Text style={styles.listText}>Liberty</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.listButton}
+            onPress={() => {
+              // navigation.navigate("PersonalInfo");
+            }}
+          >
+            <Ionicons name="time" size={16} color="black" />
+            <Text style={styles.listText}>Emporium</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
       <ExpoStatusBar style="auto" />
@@ -33,6 +73,15 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
     padding: 10,
   },
+  list: {
+    margin: 1,
+  },
+  listButton: {
+    marginVertical: 5,
+    flexDirection: "row",
+    padding: 10,
+  },
+  listText: { fontSize: 15, marginLeft: 20, fontWeight: "500" },
 });
 
 export default SearchScreen;

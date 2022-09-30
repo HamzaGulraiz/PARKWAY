@@ -12,6 +12,7 @@ import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import RestorePassword from "../screens/RestorePassword";
 import SearchScreen from "../screens/SearchScreen";
 import CardViewHome from "./CardViewHome";
+import PersonalInfo from "../screens/PersonalInfo";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,11 @@ function IntroLoginScreenContainer() {
           options={{ headerShown: false }}
           name="SearchScreen"
           component={SearchScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="PersonalInfo"
+          component={PersonalInfo}
         />
       </Stack.Navigator>
     </NavigationContainer>
