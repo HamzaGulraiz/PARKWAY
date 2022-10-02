@@ -10,33 +10,42 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
-import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-
+import React, { useState } from "react";
 import { Colors } from "../Utils/color";
 
-function Login({ navigation }) {
+// import { auth } from "../firebase";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+
+const Login = ({ navigation }) => {
+  // const [isSignedIn, setIsSignedIn] = useState(false);
+
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  // const RegisterUser = () => {};
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image
-          source={require("../asset/adaptive-icon1.png")}
-          style={styles.image}
-        />
-        <Text style={styles.text}>Welcome Back</Text>
-      </View>
       <KeyboardAvoidingView style={styles.formContainer}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../asset/adaptive-icon1.png")}
+            style={styles.image}
+          />
+          <Text style={styles.text}>Welcome Back</Text>
+        </View>
+
         <TextInput
           style={styles.input}
-          // onChangeText={onChangeNumber}
-          // value={number}
+          // value={email}
           placeholder="User Name"
+          //  onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.input}
-          // onChangeText={onChangeNumber}
-          // value={number}
+          // value={password}
+          //  onChangeText={(text) => setPassword(text)}
           placeholder="Password"
+          secureTextEntry={true}
         />
         <View style={styles.forgotPassword}>
           <TouchableOpacity
@@ -47,29 +56,30 @@ function Login({ navigation }) {
             <Text style={styles.forgot}>Forgot your password?</Text>
           </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
-      <View style={styles.buttonContainer}>
-        <Button
-          onPress={() => {
-            navigation.navigate("Main");
-          }}
-          title="Login"
-          color="#62757f"
-        />
-        <View style={styles.row}>
-          <Text>Don’t have an account? </Text>
-          <TouchableOpacity
+
+        <View style={styles.buttonContainer}>
+          <Button
             onPress={() => {
-              navigation.navigate("Register");
+              navigation.navigate("Main");
             }}
-          >
-            <Text style={styles.link}>Sign up</Text>
-          </TouchableOpacity>
+            title="Login"
+            color="#62757f"
+          />
+          <View style={styles.row}>
+            <Text>Don’t have an account? </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Register");
+              }}
+            >
+              <Text style={styles.link}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
-}
+};
 
 export default Login;
 
@@ -78,7 +88,7 @@ const styles = StyleSheet.create({
   logoContainer: { alignItems: "center", marginTop: 100 },
   text: { fontSize: 30 },
   image: { height: 130, width: 130 },
-  formContainer: { justifyContent: "center", marginTop: 2 },
+  formContainer: { justifyContent: "center" },
   input: {
     height: 40,
     margin: 12,

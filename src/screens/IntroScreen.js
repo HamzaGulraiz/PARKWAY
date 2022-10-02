@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { Colors } from "../Utils/color";
 
-function IntroScreen({ navigation }) {
+const IntroScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.infoContainer}>
@@ -27,7 +27,7 @@ function IntroScreen({ navigation }) {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 export default IntroScreen;
 

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#cfd8dc",
     width: width - 25,
     height: 180,
-    margin: 10,
+
     borderRadius: 10,
     marginVertical: 10,
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
   },
-  textView: { margin: 10 },
+  textView: { margin: 5, flex: 2 },
   titleText: {
     fontSize: 20,
     fontWeight: "bold",

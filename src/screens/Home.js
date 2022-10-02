@@ -19,7 +19,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Separator = () => <View style={styles.separator} />;
 
-export default function Home({ navigation }) {
+const Home = ({ navigation }) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -72,7 +72,9 @@ export default function Home({ navigation }) {
       <ExpoStatusBar style="auto" />
     </>
   );
-}
+};
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
@@ -103,6 +105,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 20,
   },
+
   mapContainer: {
     backgroundColor: "#ffffff",
     alignItems: "center",

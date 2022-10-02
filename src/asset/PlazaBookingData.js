@@ -29,7 +29,7 @@ export const BookingdummyData = [
     id: 4,
   },
   {
-    title: "Parking Plaza",
+    title: "Parking Plaza ",
     img: require("./bookingpictures/lahore-care.jpeg"),
     description: " Lahore care hospital, Nishtar Town, Lahore, Punjab 54000",
     id: 5,
