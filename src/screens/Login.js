@@ -13,16 +13,7 @@ import {
 import React, { useState } from "react";
 import { Colors } from "../Utils/color";
 
-// import { auth } from "../firebase";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
-
 const Login = ({ navigation }) => {
-  // const [isSignedIn, setIsSignedIn] = useState(false);
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const RegisterUser = () => {};
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.formContainer}>

@@ -10,12 +10,11 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Colors } from "../Utils/color";
-
-// import { auth } from "../firebase";
-// import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = ({ navigation }) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -24,15 +23,15 @@ const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const RegisterUser = () => {
-  //   createUserWithEmailAndPassword(auth, name, email, password)
-  //     .then((re) => {
-  //       console.log(re);
-  //     })
-  //     .catch((re) => {
-  //       console.log(re);
-  //     });
-  // };
+  const RegisterUser = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((re) => {
+        console.log(re);
+      })
+      .catch((re) => {
+        console.log(re);
+      });
+  };
 
   return (
     <>
@@ -46,28 +45,28 @@ const Register = ({ navigation }) => {
             <Text style={styles.text}>Become a member</Text>
           </View>
 
-          <TextInput
+          {/* <TextInput
             style={styles.input}
             // value={name}
             // onChangeText={(text) => setName(text)}
             placeholder="Name"
-          />
+          /> */}
           <TextInput
             style={styles.input}
-            //  value={email}
-            //  onChangeText={(text) => setEmail(text)}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
             placeholder="Email"
           />
           <TextInput
             style={styles.input}
-            // value={password}
-            // onChangeText={(text) => setPassword(text)}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
             secureTextEntry
             placeholder="Password"
           />
 
           <View style={styles.buttonContainer}>
-            <Button onPress={handleSignup} title="Register" color="#62757f" />
+            <Button onPress={RegisterUser} title="Register" color="#62757f" />
             <View style={styles.row}>
               <Text>Already have an account </Text>
               <TouchableOpacity onPress={() => {}}>

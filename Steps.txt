@@ -67,3 +67,7 @@ npx expo install react-native-maps--
 1/10/2022
 new 
 npx expo install react-native@0.69.6----
+
+
+Changes need to be done 
+https://www.youtube.com/watch?v=9NZwiQAye1g
