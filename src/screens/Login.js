@@ -9,11 +9,38 @@ import {
   Button,
   KeyboardAvoidingView,
   TouchableOpacity,
+  ToastAndroid
 } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../Utils/color";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 
 const Login = ({ navigation }) => {
+const [isSignedIn, setIsSignedIn] = useState(false);
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
+const LoginUser = () => {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    setIsSignedIn(true);
+    const user = userCredential.user;
+    navigation.navigate("Main");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode);
+    if (errorCode == "auth/wrong-password")
+      ToastAndroid.show("Incorrect Password!", ToastAndroid.SHORT);
+
+    if (errorCode == "auth/user-not-found")
+      ToastAndroid.show("User not found!", ToastAndroid.SHORT);
+  });
+};
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.formContainer}>
@@ -26,18 +53,19 @@ const Login = ({ navigation }) => {
         </View>
 
         <TextInput
-          style={styles.input}
-          // value={email}
-          placeholder="User Name"
-          //  onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          // value={password}
-          //  onChangeText={(text) => setPassword(text)}
-          placeholder="Password"
-          secureTextEntry={true}
-        />
+            style={styles.input}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            placeholder="Email"
+          />
+          <TextInput
+            style={styles.input}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry
+            placeholder="Password"
+          />
+
         <View style={styles.forgotPassword}>
           <TouchableOpacity
             onPress={() => {
@@ -50,9 +78,7 @@ const Login = ({ navigation }) => {
 
         <View style={styles.buttonContainer}>
           <Button
-            onPress={() => {
-              navigation.navigate("Main");
-            }}
+            onPress={LoginUser}
             title="Login"
             color="#62757f"
           />

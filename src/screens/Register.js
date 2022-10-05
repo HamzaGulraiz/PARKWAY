@@ -9,12 +9,14 @@ import {
   Button,
   KeyboardAvoidingView,
   TouchableOpacity,
+  ToastAndroid
 } from "react-native";
 import React, { useState } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Colors } from "../Utils/color";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Login from "./Login";
 
 const Register = ({ navigation }) => {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -27,9 +29,12 @@ const Register = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((re) => {
         console.log(re);
+        setIsSignedIn(true);
+        ToastAndroid.show("Successfully Registered!", ToastAndroid.SHORT);
+        navigation.navigate("Main");
       })
-      .catch((re) => {
-        console.log(re);
+      .catch((error) => {
+        ToastAndroid.show("Please enter a valid email and password", ToastAndroid.SHORT);
       });
   };
 
@@ -47,8 +52,8 @@ const Register = ({ navigation }) => {
 
           {/* <TextInput
             style={styles.input}
-            // value={name}
-            // onChangeText={(text) => setName(text)}
+            value={name}
+            onChangeText={(text) => setName(text)}
             placeholder="Name"
           /> */}
           <TextInput
