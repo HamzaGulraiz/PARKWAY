@@ -1,0 +1,73 @@
+https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=CFD8DC&primary.text.color=000000&secondary.color=90A4AE
+
+Theme 
+
+installation 
+
+github lesson
+https://www.youtube.com/watch?v=3Tn58KQvWtU&t=174s
+
+Commands 
+yarn create expo-app PARKWAY -----
+
+you can also use: yarn expo start
+yarn start ---- 
+
+
+Tab navigation  
+yarn add @react-navigation/bottom-tabs -----
+
+stack nagivation
+yarn add @react-navigation/stack--------
+and
+yarn add @react-navigation/native------
+
+icons
+https://icons8.com/icons/set/bike
+https://ionic.io/ionicons
+yarn add react-native-vector-icons-----
+
+safe area context 
+yarn add react-native-safe-area-context@4.3.1----
+
+{ itna saab karne k bad bhi nhi error solve howa 
+slideshow image
+npm i react-native-image-slider-box----
+
+https://stackoverflow.com/questions/72755476/invariant-violation-viewproptypes-has-been-removed-from-react-native-migrate-t
+
+npm i patch-package
+yarn add deprecated-react-native-prop-types
+
+https://solvderror.com/react-native/error-invariant-violation-viewproptypes-has-been-removed-from-react-native-migrate-to-viewproptypes-exported-from-deprecated-react-native-prop-types/
+
+} ab kisi or tarha slider banana hai 
+
+for Button
+yarn add react-native-paper---
+
+for cardview 
+npm i --save react-native-shadow-cards----
+yarn add react-native-gradient-card-view-----
+
+
+for some errors idk
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+firebase databse
+npx expo install firebase -- changed 
+
+stack nagivation
+yarn add @react-navigation/native-stack--------
+
+
+maps
+npx expo install react-native-maps--
+
+1/10/2022
+new 
+npx expo install react-native@0.69.6----
+
+
+Changes need to be done 
+https://www.youtube.com/watch?v=9NZwiQAye1g
