@@ -15,7 +15,7 @@
     "@react-navigation/native-stack": "^6.9.0",
     "@react-navigation/stack": "^6.3.0",
     "deprecated-react-native-prop-types": "^2.2.0",
-    "expo": "~46.0.9",
+    "expo": "^46.0.14",
     "expo-status-bar": "~1.4.0",
     "firebase": "^9.10.0",
     "patch-package": "^6.4.7",
