@@ -71,3 +71,32 @@ npx expo install react-native@0.69.6----
 
 Changes need to be done 
 https://www.youtube.com/watch?v=9NZwiQAye1g
+
+Toast Changed for multi-platform
+npm install react-native-root-toast
+
+
+error fix reanimated downgraded
+https://www.youtube.com/watch?v=iXKcRCLlK30
+npm install react-native-reanimated@1 --save --save --exact
+
+
+form validation 
+https://www.youtube.com/watch?v=PEJcjbhhHeg&t=300s
+
+
+Fingobox DataBase {
+finobox.com 
+helpatparkway@gmail.com
+myapp1122
+https://www.youtube.com/watch?v=de3BBWOi_jQ&t=42s
+
+unique id 
+npm i uuid 
+
+Using Axios with React Native to manage API requests
+npm install axios
+
+because sometimes react is shit 
+ npm audit fix --force
+}

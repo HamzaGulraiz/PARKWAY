@@ -22,6 +22,7 @@ function MainContainerScreen() {
   return (
     <Tab.Navigator
       initialRouteName={homeName}
+      backBehavior="none"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;

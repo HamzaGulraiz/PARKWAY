@@ -13,6 +13,8 @@ import RestorePassword from "../screens/RestorePassword";
 import SearchScreen from "../screens/SearchScreen";
 import CardViewHome from "./CardViewHome";
 import PersonalInfo from "../screens/PersonalInfo";
+import Setting from "../screens/Setting";
+import Account from "../screens/Account";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +56,12 @@ function IntroLoginScreenContainer() {
           options={{ headerShown: false }}
           name="PersonalInfo"
           component={PersonalInfo}
+        />
+
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Setting"
+          component={Setting}
         />
       </Stack.Navigator>
     </NavigationContainer>

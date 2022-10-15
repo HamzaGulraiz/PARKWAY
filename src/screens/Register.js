@@ -9,33 +9,101 @@ import {
   Button,
   KeyboardAvoidingView,
   TouchableOpacity,
-  ToastAndroid
+  ToastAndroid,
+  ScrollView,
 } from "react-native";
+import Toast from "react-native-root-toast";
 import React, { useState } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import FormInput from "../components/FormInput";
 import { Colors } from "../Utils/color";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import Login from "./Login";
+
+const isValidObjField = (obj) => {
+  return Object.values(obj).every((value) => value.trim());
+};
+
+const updateError = (error, stateUpdater) => {
+  stateUpdater(error);
+  setTimeout(() => {
+    stateUpdater("");
+  }, 2500);
+};
+
+const isValidEmail = (value) => {
+  const regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+  return regx.test(value);
+};
 
 const Register = ({ navigation }) => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
+  const { firstName, lastName, email, password } = userInfo;
+
+  const handleOnChangeText = (value, fieldName) => {
+    setUserInfo({ ...userInfo, [fieldName]: value });
+  };
+
+  const isValidForm = () => {
+    if (!isValidObjField(userInfo))
+      return updateError("Required all fields!", setError);
+
+    if (!isValidEmail(email)) return updateError("Invail Email!", setError);
+
+    if (!firstName.trimEnd() || firstName.length < 3)
+      return updateError(
+        "Invalid Name 'name should be more than 3 characters'!",
+        setError
+      );
+
+    if (!lastName.trimEnd() || lastName.length < 6)
+      return updateError(
+        "Invalid Name! 'name should be more than 3 characters'",
+        setError
+      );
+
+    if (!password.trimEnd() || password.length < 6)
+      return updateError("Password should be atleast 6 characters!", setError);
+  };
+
+  const submitForm = () => {
+    if (isValidForm()) {
+      //submit
+
+      console.log(userInfo);
+    }
+  };
+
+  //////////////////////////////////User Creation with Database
   const RegisterUser = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((re) => {
-        console.log(re);
-        setIsSignedIn(true);
-        ToastAndroid.show("Successfully Registered!", ToastAndroid.SHORT);
-        navigation.navigate("Main");
-      })
-      .catch((error) => {
-        ToastAndroid.show("Please enter a valid email and password", ToastAndroid.SHORT);
-      });
+    // // let uuid = uuidv4();
+    // let fName = userInfo.firstName;
+    // let lName = userInfo.lastName;
+    // let email = userInfo.email;
+    // let password = userInfo.password;
+    // axios
+    //   .post("https://fingobox.com/api/database/row", {
+    //     app_id: 67,
+    //     app_token: "dGcFxHbptVvDgDR6GvGwcW",
+    //     database_id: 57,
+    //     database_column_values: {
+    //       user_firstName: fName,
+    //       user_lastName: lName,
+    //       user_email: email,
+    //       user_password: password,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log("res.data: ", res.data);
+    //     navigation.navigate("Login");
+    //   })
+    //   .catch((err) => console.log("err: ", err.response.data));
   };
 
   return (
@@ -50,37 +118,69 @@ const Register = ({ navigation }) => {
             <Text style={styles.text}>Become a member</Text>
           </View>
 
-          {/* <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={(text) => setName(text)}
-            placeholder="Name"
-          /> */}
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            placeholder="Email"
-          />
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-            placeholder="Password"
-          />
+          <ScrollView>
+            {error ? (
+              <Text style={{ color: "red", fontSize: 15, textAlign: "center" }}>
+                {error}
+              </Text>
+            ) : null}
 
-          <View style={styles.buttonContainer}>
-            <Button onPress={RegisterUser} title="Register" color="#62757f" />
-            <View style={styles.row}>
-              <Text>Already have an account </Text>
-              <TouchableOpacity onPress={() => {}}>
-                <Text style={styles.link}>Sign in</Text>
-              </TouchableOpacity>
+            <FormInput
+              value={firstName}
+              onChangeText={(value) => handleOnChangeText(value, "firstName")}
+              placeholder="First Name"
+              autoCapitalize="none"
+            />
+
+            <FormInput
+              value={lastName}
+              onChangeText={(value) => handleOnChangeText(value, "lastName")}
+              placeholder="Last Name"
+              autoCapitalize="none"
+            />
+
+            <FormInput
+              value={email}
+              onChangeText={(value) => handleOnChangeText(value, "email")}
+              placeholder="example@email.com"
+              autoCapitalize="none"
+            />
+
+            <FormInput
+              value={password}
+              onChangeText={(value) => handleOnChangeText(value, "password")}
+              secureTextEntry
+              autoCapitalize="none"
+              placeholder="Password"
+            />
+
+            <View style={styles.buttonContainer}>
+              <Button
+                onPress={() => {
+                  submitForm ? navigation.navigate("Login") : null;
+                }}
+                title="Register"
+                color="#62757f"
+              />
+
+              {/* <TouchableOpacity>
+                <Text>Register</Text>
+              </TouchableOpacity> */}
+              <View style={styles.row}>
+                <Text>Already have an account </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Login");
+                  }}
+                >
+                  <Text style={styles.link}>Sign in</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
+
       <ExpoStatusBar style="auto" />
     </>
   );
@@ -93,17 +193,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.screenBackGround,
   },
-  logoContainer: { alignItems: "center", marginTop: StatusBar.currentHeight },
+  logoContainer: { alignItems: "center", marginTop: 100 },
   text: { fontSize: 30 },
   image: { height: 130, width: 130 },
   formContainer: { justifyContent: "center" },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 15,
-  },
+
   buttonContainer: {
     padding: 30,
   },

@@ -65,13 +65,19 @@ export default function Account({ navigation }) {
               <Ionicons name="location" size={16} color="black" />
               <Text style={styles.listText}>Location</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listButton}>
+            <TouchableOpacity
+              style={styles.listButton}
+              onPress={() => {
+                navigation.navigate("Setting");
+              }}
+            >
               <Ionicons name="settings-outline" size={16} color="black" />
               <Text style={styles.listText}>Setting</Text>
             </TouchableOpacity>
           </View>
           <Text style={{ marginLeft: 10 }}>V-Beta 1.01</Text>
         </ScrollView>
+        <Separator />
       </SafeAreaView>
       <ExpoStatusBar style="auto" />
     </>
