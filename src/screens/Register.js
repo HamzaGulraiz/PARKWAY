@@ -9,9 +9,10 @@ import {
   Button,
   KeyboardAvoidingView,
   TouchableOpacity,
-  ToastAndroid,
+  ActivityIndicator,
   ScrollView,
 } from "react-native";
+import axios from "axios";
 import Toast from "react-native-root-toast";
 import React, { useState } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
@@ -35,6 +36,11 @@ const isValidEmail = (value) => {
 };
 
 const Register = ({ navigation }) => {
+  const [isLoaded, setIsLoaded] = useState(true);
+
+  const registerOnPress = () => {
+    submitForm() ? RegisterUser() : console.log("here is the problem line 176");
+  };
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
@@ -56,13 +62,13 @@ const Register = ({ navigation }) => {
 
     if (!isValidEmail(email)) return updateError("Invail Email!", setError);
 
-    if (!firstName.trimEnd() || firstName.length < 3)
+    if (!firstName.trimEnd() || firstName.length <= 2)
       return updateError(
         "Invalid Name 'name should be more than 3 characters'!",
         setError
       );
 
-    if (!lastName.trimEnd() || lastName.length < 6)
+    if (!lastName.trimEnd() || lastName.length <= 2)
       return updateError(
         "Invalid Name! 'name should be more than 3 characters'",
         setError
@@ -70,40 +76,45 @@ const Register = ({ navigation }) => {
 
     if (!password.trimEnd() || password.length < 6)
       return updateError("Password should be atleast 6 characters!", setError);
+    else {
+      return true;
+    }
   };
 
   const submitForm = () => {
     if (isValidForm()) {
       //submit
-
+      return true;
       console.log(userInfo);
     }
   };
 
   //////////////////////////////////User Creation with Database
   const RegisterUser = () => {
-    // // let uuid = uuidv4();
-    // let fName = userInfo.firstName;
-    // let lName = userInfo.lastName;
-    // let email = userInfo.email;
-    // let password = userInfo.password;
-    // axios
-    //   .post("https://fingobox.com/api/database/row", {
-    //     app_id: 67,
-    //     app_token: "dGcFxHbptVvDgDR6GvGwcW",
-    //     database_id: 57,
-    //     database_column_values: {
-    //       user_firstName: fName,
-    //       user_lastName: lName,
-    //       user_email: email,
-    //       user_password: password,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log("res.data: ", res.data);
-    //     navigation.navigate("Login");
-    //   })
-    //   .catch((err) => console.log("err: ", err.response.data));
+    // let uuid = uuidv4();
+    setIsLoaded(false);
+    let fName = userInfo.firstName;
+    let lName = userInfo.lastName;
+    let email = userInfo.email;
+    let password = userInfo.password;
+    axios
+      .post("https://fingobox.com/api/database/row", {
+        app_id: 67,
+        app_token: "dGcFxHbptVvDgDR6GvGwcW",
+        database_id: 57,
+        database_column_values: {
+          user_firstName: fName,
+          user_lastName: lName,
+          user_email: email,
+          user_password: password,
+        },
+      })
+      .then((res) => {
+        console.log("res.data: ", res.data);
+        navigation.navigate("Login");
+        setIsLoaded(true);
+      })
+      .catch((err) => console.log("err: ", err.response.data));
   };
 
   return (
@@ -155,17 +166,25 @@ const Register = ({ navigation }) => {
             />
 
             <View style={styles.buttonContainer}>
-              <Button
+              {/* <Button
                 onPress={() => {
-                  submitForm ? navigation.navigate("Login") : null;
+                  submitForm() ? RegisterUser() : null;
                 }}
                 title="Register"
                 color="#62757f"
-              />
-
-              {/* <TouchableOpacity>
-                <Text>Register</Text>
-              </TouchableOpacity> */}
+              /> */}
+              <TouchableOpacity
+                style={styles.loginButton}
+                onPress={() => {
+                  registerOnPress();
+                }}
+              >
+                {isLoaded ? (
+                  <Text style={{ color: "white", fontSize: 16 }}>Register</Text>
+                ) : (
+                  <ActivityIndicator size="small" color="white" />
+                )}
+              </TouchableOpacity>
               <View style={styles.row}>
                 <Text>Already have an account </Text>
                 <TouchableOpacity
@@ -200,6 +219,13 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     padding: 30,
+  },
+  loginButton: {
+    backgroundColor: "#62757f",
+    padding: 8,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   forgotPassword: {
     width: "90%",

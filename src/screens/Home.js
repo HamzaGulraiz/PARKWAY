@@ -9,13 +9,14 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import MapView from "react-native-maps";
+
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Colors } from "../Utils/color";
 import SlideShowHome from "../components/SlideShowHome";
 import { dummyData } from "../asset/SlideShowHomeData";
 import CardViewHome from "../components/CardViewHome";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import GetLocation from "../components/GetLocation";
 
 const Separator = () => <View style={styles.separator} />;
 
@@ -65,7 +66,7 @@ const Home = ({ navigation }) => {
           </View>
 
           <View style={styles.mapContainer}>
-            <MapView style={styles.map} />
+            <GetLocation />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -102,19 +103,14 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     backgroundColor: "#cfd8dc",
-    padding: 10,
+    borderRadius: 5,
+
+    padding: 12,
     margin: 20,
   },
 
   mapContainer: {
     backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 20,
-    padding: 10,
-  },
-  map: {
-    width: "100%",
-    height: 200,
+    padding: 20,
   },
 });
