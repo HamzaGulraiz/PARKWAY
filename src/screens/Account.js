@@ -75,9 +75,8 @@ export default function Account({ navigation }) {
               <Text style={styles.listText}>Setting</Text>
             </TouchableOpacity>
           </View>
-          <Text style={{ marginLeft: 10 }}>V-Beta 1.01</Text>
+          <Text style={{ marginLeft: 10 }}>V-Alpha 1.01</Text>
         </ScrollView>
-        <Separator />
       </SafeAreaView>
       <ExpoStatusBar style="auto" />
     </>

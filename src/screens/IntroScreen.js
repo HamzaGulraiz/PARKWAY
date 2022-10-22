@@ -7,6 +7,7 @@ import {
   Button,
 } from "react-native";
 import React from "react";
+
 import { StackActions } from "@react-navigation/native";
 
 import { Colors } from "../Utils/color";
@@ -24,7 +25,7 @@ const IntroScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <Button
           title="Get Started"
-          onPress={() => navigation.dispatch(StackActions.replace("Login"))}
+          onPress={() => navigation.dispatch(StackActions.replace("Main"))}
         />
       </View>
     </SafeAreaView>

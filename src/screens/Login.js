@@ -9,14 +9,14 @@ import {
   Button,
   KeyboardAvoidingView,
   TouchableOpacity,
-  ToastAndroid,
+  ActivityIndicator,
 } from "react-native";
+import Toast from "react-native-root-toast";
+import axios from "axios";
 import { StackActions } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Colors } from "../Utils/color";
 import FormInput from "../components/FormInput";
-
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const isValidObjField = (obj) => {
   return Object.values(obj).every((value) => value.trim());
@@ -35,6 +35,13 @@ const isValidEmail = (value) => {
 };
 
 const Login = ({ navigation }) => {
+  const [isLoaded, setIsLoaded] = useState(true);
+
+  const loginOnPress = () => {
+    setIsLoaded(false);
+    submitForm() ? loginUser() : console.log("here is the problem line 176");
+  };
+
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -43,7 +50,7 @@ const Login = ({ navigation }) => {
   const [error, setError] = useState("");
 
   const { email, password } = userInfo;
-  console.log(userInfo);
+  // console.log(userInfo, " line 55");
   const handleOnChangeText = (value, fieldName) => {
     setUserInfo({ ...userInfo, [fieldName]: value });
   };
@@ -56,39 +63,61 @@ const Login = ({ navigation }) => {
 
     if (!password.trimEnd() || password.length < 6)
       return updateError("Password should be atleast 6 characters!", setError);
+    else {
+      return true;
+    }
   };
 
   const submitForm = () => {
     if (isValidForm()) {
       //submit
-
-      console.log(userInfo);
+      return true;
+      // console.log("true line 77");
     }
   };
 
   ///////////////////////login with database
 
-  const LoginUser = () => {
-    // const auth = getAuth();
-    // signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
-    //   .then((userCredential) => {
-    //     setIsSignedIn(true);
-    //     const user = userCredential.user;
-    //     navigation.navigate("Main");
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log(errorCode);
-    //     if (errorCode == "auth/wrong-password")
-    //       ToastAndroid.show("Incorrect Password!", ToastAndroid.SHORT);
-    //     if (errorCode == "auth/user-not-found")
-    //       ToastAndroid.show("User not found!", ToastAndroid.SHORT);
-    //   });
+  const loginUser = () => {
+    console.log("username, password: ", email, password);
+
+    axios
+      .get(
+        `https://fingobox.com/api/database/select/from/67/dGcFxHbptVvDgDR6GvGwcW/57/where/user_email/equals/${email}`
+      )
+      .then((res) => {
+        console.log("res.data: ", res.data);
+        const passCheck = res.data[0].columns.user_password;
+        console.log(passCheck);
+
+        if (password === passCheck) {
+          console.log("login successful!");
+          setIsLoaded(true);
+          navigation.dispatch(StackActions.replace("Main"));
+        } else {
+          setIsLoaded(true);
+          Toast.show("Invalid Email or Password!!", {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+          console.log("login failed!");
+        }
+      })
+      .catch((err) => console.log(err.response.data));
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* {isLoaded ? (
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color="#000ff" />
+        </View>
+      ) : (
+        <View> */}
       <KeyboardAvoidingView style={styles.formContainer}>
         <View style={styles.logoContainer}>
           <Image
@@ -121,7 +150,7 @@ const Login = ({ navigation }) => {
         <View style={styles.forgotPassword}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Main");
+              // navigation.navigate("Main");
             }}
           >
             <Text style={styles.forgot}>Forgot your password?</Text>
@@ -129,15 +158,26 @@ const Login = ({ navigation }) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <Button
+          {/* <Button
             onPress={() => {
-              submitForm
-                ? navigation.dispatch(StackActions.replace("Main"))
-                : null;
+              loginOnpress();
             }}
             title="Login"
             color="#62757f"
-          />
+          /> */}
+
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => {
+              loginOnPress();
+            }}
+          >
+            {isLoaded ? (
+              <Text style={{ color: "white", fontSize: 16 }}>Login</Text>
+            ) : (
+              <ActivityIndicator size="small" color="white" />
+            )}
+          </TouchableOpacity>
           <View style={styles.row}>
             <Text>Don’t have an account? </Text>
             <TouchableOpacity
@@ -150,6 +190,8 @@ const Login = ({ navigation }) => {
           </View>
         </View>
       </KeyboardAvoidingView>
+      {/* </View>
+      )} */}
     </SafeAreaView>
   );
 };
@@ -158,6 +200,12 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.screenBackGround },
+  loader: {
+    minHeight: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   logoContainer: { alignItems: "center", marginTop: 100 },
   text: { fontSize: 30 },
   image: { height: 130, width: 130 },
@@ -171,6 +219,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     padding: 30,
+  },
+  loginButton: {
+    backgroundColor: "#62757f",
+    padding: 8,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   forgotPassword: {
     width: "90%",
