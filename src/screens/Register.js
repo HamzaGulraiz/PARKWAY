@@ -140,14 +140,12 @@ const Register = ({ navigation }) => {
               value={firstName}
               onChangeText={(value) => handleOnChangeText(value, "firstName")}
               placeholder="First Name"
-              autoCapitalize="none"
             />
 
             <FormInput
               value={lastName}
               onChangeText={(value) => handleOnChangeText(value, "lastName")}
               placeholder="Last Name"
-              autoCapitalize="none"
             />
 
             <FormInput

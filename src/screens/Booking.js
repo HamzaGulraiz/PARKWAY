@@ -16,9 +16,9 @@ export default function Booking({ navigation }) {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <View style={styles.searchContainer}>
+        {/* <View style={styles.searchContainer}>
           <Searchbar style={styles.searchBar} placeholder="Search" />
-        </View>
+        </View> */}
 
         <View style={styles.bookingContainer}>
           <PlazaBooking data={BookingdummyData} />

@@ -1,20 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-
+//////////////////////////////////////////////////////////////
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+////////////////////////////////////////////////////////////////
 import IntroScreen from "../screens/IntroScreen";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
+////////////////////////////////////////////////////////////////////////////
 import MainContainerScreen from "../components/MainContainerScreen";
-import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import RestorePassword from "../screens/RestorePassword";
 import SearchScreen from "../screens/SearchScreen";
-import CardViewHome from "./CardViewHome";
-import PersonalInfo from "../screens/PersonalInfo";
-import Setting from "../screens/Setting";
-import Account from "../screens/Account";
+//////////////////////////////////////////////////////////////////////////////
+import PersonalInfo from "../screens/AccountScreens/PersonalInfo";
+import CardAndAccounts from "../screens/AccountScreens/CardAndAccounts";
+import Wallet from "../screens/AccountScreens/Wallet";
+import Trips from "../screens/AccountScreens/Trips";
+import Message from "../screens/AccountScreens/Message";
+import Help from "../screens/AccountScreens/Help";
+import Location from "../screens/AccountScreens/Location";
+import Setting from "../screens/AccountScreens/Setting";
+////////////////////////////////////////////////////////////////////
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +64,36 @@ function IntroLoginScreenContainer() {
           component={PersonalInfo}
         />
 
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="CardAndAccounts"
+          component={CardAndAccounts}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Wallet"
+          component={Wallet}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Trips"
+          component={Trips}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Message"
+          component={Message}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Help"
+          component={Help}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Location"
+          component={Location}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           name="Setting"

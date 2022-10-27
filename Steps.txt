@@ -7,6 +7,8 @@ hamzaa@gmail.com
 12345678
 ali@gmail.com
 qwerty
+hamzagulraiz@gmail.com
+qwerty
 
 installation 
 
@@ -107,13 +109,34 @@ because sometimes react is shit
  npm audit fix --force
 }
 
-
+Clone and Npm install
+{
 pull and push clone from master in github
 https://www.youtube.com/watch?v=SD7YNLv5Evc
 and 
 https://www.youtube.com/watch?v=VNNChXqF390
-
+}
 
 animation for app loader 
 npx expo install lottie-react-native
 https://lottiefiles.com/
+
+
+Data from login to personal info with temporary db
+{
+https://www.youtube.com/watch?v=oXsTkvxHeYw
+npx expo install @react-native-async-storage/async-storage
+
+} 
+
+
+map search {
+
+api
+https://console.cloud.google.com/
+
+https://github.com/FaridSafi/react-native-google-places-autocomplete
+yarn add react-native-google-places-autocomplete
+
+
+}

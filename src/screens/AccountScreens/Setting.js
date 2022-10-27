@@ -10,7 +10,7 @@ import {
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { StackActions, useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Colors } from "../Utils/color";
+import { Colors } from "../../Utils/color";
 
 const logoutAlert = (navigation) => {
   Alert.alert("Logout", "Do you wish to logout", [

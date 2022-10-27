@@ -17,6 +17,7 @@ import { dummyData } from "../asset/SlideShowHomeData";
 import CardViewHome from "../components/CardViewHome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import GetLocation from "../components/GetLocation";
+import { useRoute } from "@react-navigation/native";
 
 const Separator = () => <View style={styles.separator} />;
 
