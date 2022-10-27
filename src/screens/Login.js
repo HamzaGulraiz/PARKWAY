@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-root-toast";
 import axios from "axios";
 import { StackActions } from "@react-navigation/native";
@@ -77,7 +79,6 @@ const Login = ({ navigation }) => {
   };
 
   ///////////////////////login with database
-
   const loginUser = () => {
     console.log("username, password: ", email, password);
 
@@ -87,8 +88,16 @@ const Login = ({ navigation }) => {
       )
       .then((res) => {
         console.log("res.data: ", res.data);
+
         const passCheck = res.data[0].columns.user_password;
-        console.log(passCheck);
+
+        ////temp storage id detail/////
+
+        const jsonValue = JSON.stringify(res.data);
+        console.log("jsonvalue sent by async", jsonValue);
+        AsyncStorage.setItem("userInfo", jsonValue);
+
+        ////////////////////////////////////////
 
         if (password === passCheck) {
           console.log("login successful!");

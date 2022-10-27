@@ -25,7 +25,7 @@ const IntroScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <Button
           title="Get Started"
-          onPress={() => navigation.dispatch(StackActions.replace("Main"))}
+          onPress={() => navigation.dispatch(StackActions.replace("Login"))}
         />
       </View>
     </SafeAreaView>

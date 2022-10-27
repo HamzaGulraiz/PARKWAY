@@ -24,7 +24,7 @@ export default function GetLocation() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-
+      setLocation(location);
       // console.log(location);
       setRegion({
         latitude: location.coords.latitude,
@@ -41,7 +41,7 @@ export default function GetLocation() {
   } else if (location) {
     text = JSON.stringify(location);
   }
-
+  console.log(text);
   return (
     <View style={styles.container}>
       {location ? (

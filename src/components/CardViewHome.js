@@ -20,10 +20,7 @@ function CardViewHome() {
           navigation.navigate("SearchScreen");
         }}
       >
-        <Image
-          style={styles.image}
-          source={require("../asset/electric-motor.png")}
-        />
+        <Image style={styles.image} source={require("../asset/bike.png")} />
       </TouchableOpacity>
     </View>
   );
@@ -40,6 +37,7 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: "#cfd8dc",
     alignItems: "center",
+    justifyContent: "center",
     margin: 10,
     borderRadius: 10,
     shadowColor: "#000",
@@ -56,8 +54,8 @@ const styles = StyleSheet.create({
     left: 5,
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
   },
   itemTitle: {
     color: "#000000",
