@@ -109,7 +109,7 @@ because sometimes react is shit
  npm audit fix --force
 }
 
-Clone and Npm install
+Clone and npm install
 {
 pull and push clone from master in github
 https://www.youtube.com/watch?v=SD7YNLv5Evc

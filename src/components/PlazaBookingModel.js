@@ -8,18 +8,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 
 import React from "react";
 
 const { width, height } = Dimensions.get("window");
 
-const PlazaBookingModel = ({ item }) => {
+const PlazaBookingModel = ({ item, onItemClick }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.cardContainer}>
       <TouchableOpacity
-        onPress={() => {
-          //navigation.navigate("SearchScreen");
-        }}
+        onPress={() =>
+          navigation.navigate("BookSpot", {
+            item,
+          })
+        }
       >
         <View style={styles.imgTitleContainer}>
           <View>

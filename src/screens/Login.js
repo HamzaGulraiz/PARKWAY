@@ -40,7 +40,6 @@ const Login = ({ navigation }) => {
   const [isLoaded, setIsLoaded] = useState(true);
 
   const loginOnPress = () => {
-    setIsLoaded(false);
     submitForm() ? loginUser() : console.log("here is the problem line 176");
   };
 
@@ -81,7 +80,7 @@ const Login = ({ navigation }) => {
   ///////////////////////login with database
   const loginUser = () => {
     console.log("username, password: ", email, password);
-
+    setIsLoaded(false);
     axios
       .get(
         `https://fingobox.com/api/database/select/from/67/dGcFxHbptVvDgDR6GvGwcW/57/where/user_email/equals/${email}`
