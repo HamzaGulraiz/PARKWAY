@@ -6,6 +6,7 @@ import {
   FlatList,
   TextInput,
   StatusBar,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import PlazaBookingModel from "./PlazaBookingModel";
@@ -31,18 +32,29 @@ const PlazaBooking = ({ data }) => {
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
+
       setFilteredData(newData);
+      // console.log(filteredData);
       setSearch(text);
+
+      // console.log(newData);
+      // console.log(search);
     } else {
       setFilteredData(masterData);
       setSearch(text);
     }
   };
 
+  const handleItemClick = () => {
+    console.log("abc");
+  };
+
+  // console.log(filteredData);
+  // console.log(masterData);
   if (data && data.length) {
     return (
       <>
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.searchContainer}>
             <TextInput
               placeholderTextColor="black"
@@ -55,12 +67,35 @@ const PlazaBooking = ({ data }) => {
               style={styles.searchBarInput}
             />
           </View>
-          <FlatList
-            data={filteredData}
-            renderItem={({ item }) => {
-              return <PlazaBookingModel item={item} />;
-            }}
-          />
+          {filteredData != undefined && filteredData.length > 0 ? (
+            <>
+              <FlatList
+                data={filteredData}
+                renderItem={({ item }) => {
+                  return (
+                    <PlazaBookingModel
+                      item={item}
+                      // onItemClick={handleItemClick}
+                    />
+                  );
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+                  Not Available
+                </Text>
+              </View>
+            </>
+          )}
         </SafeAreaView>
         <ExpoStatusBar style="auto" />
       </>
@@ -85,5 +120,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 15,
     fontWeight: "400",
+  },
+  button: {
+    flexDirection: "row",
+    backgroundColor: "#cfd8dc",
+    borderRadius: 5,
+
+    padding: 12,
+    margin: 20,
   },
 });

@@ -21,6 +21,9 @@ import Help from "../screens/AccountScreens/Help";
 import Location from "../screens/AccountScreens/Location";
 import Setting from "../screens/AccountScreens/Setting";
 ////////////////////////////////////////////////////////////////////
+import PlazaBookingModel from "./PlazaBookingModel";
+import PlazaBooking from "./PlazaBooking";
+import BookSpot from "../screens/BookingScreen/BookSpot";
 
 const Stack = createNativeStackNavigator();
 
@@ -98,6 +101,16 @@ function IntroLoginScreenContainer() {
           options={{ headerShown: false }}
           name="Setting"
           component={Setting}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="PlazaModel"
+          component={PlazaBookingModel}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="BookSpot"
+          component={BookSpot}
         />
       </Stack.Navigator>
     </NavigationContainer>

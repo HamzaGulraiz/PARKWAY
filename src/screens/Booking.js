@@ -6,6 +6,7 @@ import {
   ScrollView,
   SafeAreaView,
   StatusBar,
+  TouchableOpacity,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";

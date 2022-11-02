@@ -15,6 +15,7 @@ import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { ScrollView } from "react-native-gesture-handler";
 
 function SearchScreen() {
   const apiKey = "AIzaSyDUyKeEdc9hDuYhTKrMHTQBVYRHC0lpfgA";
