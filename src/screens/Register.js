@@ -107,6 +107,7 @@ const Register = ({ navigation }) => {
           user_lastName: lName,
           user_email: email,
           user_password: password,
+          user_is_booked:false, 
         },
       })
       .then((res) => {

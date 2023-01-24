@@ -20,6 +20,7 @@ const PersonalInfo = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
+ 
   useEffect(() => {
     AsyncStorage.getItem("userInfo").then((value) => {
       let userObj = JSON.parse(value);
@@ -27,6 +28,7 @@ const PersonalInfo = () => {
       setLastName(userObj[0].columns.user_lastName);
       setEmail(userObj[0].columns.user_email);
       setPassword(userObj[0].columns.user_password);
+     
 
       // console.log(userObj[0].columns.user_email);
     });

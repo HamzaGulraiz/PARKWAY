@@ -158,7 +158,7 @@ const Login = ({ navigation }) => {
         <View style={styles.forgotPassword}>
           <TouchableOpacity
             onPress={() => {
-              // navigation.navigate("Main");
+               navigation.navigate("Main");
             }}
           >
             <Text style={styles.forgot}>Forgot your password?</Text>
