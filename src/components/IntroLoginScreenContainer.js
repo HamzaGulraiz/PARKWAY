@@ -11,6 +11,7 @@ import Register from "../screens/Register";
 import MainContainerScreen from "../components/MainContainerScreen";
 import RestorePassword from "../screens/RestorePassword";
 import SearchScreen from "../screens/SearchScreen";
+import ApiCall from "../screens/apiCall";
 //////////////////////////////////////////////////////////////////////////////
 import PersonalInfo from "../screens/AccountScreens/PersonalInfo";
 import CardAndAccounts from "../screens/AccountScreens/CardAndAccounts";
@@ -60,7 +61,12 @@ function IntroLoginScreenContainer() {
           options={{ headerShown: false }}
           name="SearchScreen"
           component={SearchScreen}
-        />
+        />       
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="apiCall"
+          component={ApiCall}
+        />   
         <Stack.Screen
           options={{ headerShown: false }}
           name="PersonalInfo"
