@@ -3,8 +3,6 @@ https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=C
 Theme 
 
 Login
-hamzaa@gmail.com
-12345678
 ali@gmail.com
 qwerty
 hamzagulraiz@gmail.com

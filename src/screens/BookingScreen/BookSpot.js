@@ -14,6 +14,8 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { ScrollView } from "react-native-gesture-handler";
 import Toast from "react-native-root-toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StackActions } from "@react-navigation/native";
+
 
 
 const BookSpot = ({ route, navigation }) => {
@@ -36,6 +38,7 @@ const BookSpot = ({ route, navigation }) => {
 
   const btnPressedBike = () => {
     if (bookBike === false) {
+      setReservationNumber(generateString(10));
       ifUserIsBooked();
       setBookBike(true);
       setBookCar(false);
@@ -48,7 +51,8 @@ const BookSpot = ({ route, navigation }) => {
     }
   };
   const btnPressedCar = () => {
-    if (bookCar === false) {
+    if (bookCar === false) { 
+      setReservationNumber(generateString(10));
       ifUserIsBooked();
       setBookCar(true);
       setBookBike(false);
@@ -81,21 +85,24 @@ const BookSpot = ({ route, navigation }) => {
 
 
   const bookBtn = () => {
+   
 
     if (bookBike === false && bookCar === false) {
       bookState();
     }
       if (bookBike === true) {
-        if(bikeSpot==0||bikeSpot>=bikeTotalSpots-1){
+        if(bikeSpot==0){
           noSpotMessage();
         }else{
+      
         postBikeData();
       } 
     }
       if(bookCar===true) {
-        if(carSpot==0||carSpot>=carTotalSpots-1){
+        if(carSpot==0){
           noSpotMessage();
         }else{
+       
         postCarData();
       } 
     }
@@ -113,28 +120,84 @@ const BookSpot = ({ route, navigation }) => {
     });
   }
 
+  const plazaTitle=item.title;
   const dataBaseIdBike=item.dataBaseIdBike;
   const dataBaseRowIdBike=item.dataBaseRowIdBike;
+  
 
   const postBikeData=()=>{
 
-    if(apiName==="F"){
+ 
+
+    // if(userBookingUpdateState===true){
+
+      if(apiName==="F"){
 
 
-      axios
-      .put("https://fingobox.com/api/database/row", {
-        app_id: 150,
-        app_token: "V1aBoEr8U1Kti2PkYkbebN",
-        database_id: dataBaseIdBike,
-        database_row_id:dataBaseRowIdBike,
-        database_column_values: {
-        bike:bikeTempValue
+        axios
+        .put("https://fingobox.com/api/database/row", {
+          app_id: 150,
+          app_token: "V1aBoEr8U1Kti2PkYkbebN",
+          database_id: dataBaseIdBike,
+          database_row_id:dataBaseRowIdBike,
+          database_column_values: {
+          bike:bikeTempValue
+        }
+        })
+        .then((res) => {
+          console.log("res.data hereee: ",res.data.date); 
+         
+          Toast.show("Bike Booked, For more detail go to Trips", {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+          const bookingDate= res.data.date;
+          const plazaInfo = [
+            {
+              title:plazaTitle,
+              databaseId:dataBaseIdBike,
+              databaseRowId:dataBaseRowIdBike,
+              value:bikeTempValue,
+              vehicle:"bike",
+              date:bookingDate,
+              reservation_number:reservationNumber,
+            }
+          ]
+          const jsonValue = JSON.stringify(plazaInfo);
+          AsyncStorage.setItem("plazaInfo", jsonValue);
+          console.log("sent", jsonValue);
+          userBookingDetailUpdate();
+          /////////////////activityupdate////////////////////
+          axios
+          .post("https://fingobox.com/api/database/row", {
+              app_id: 156,
+              app_token: "3k09fXJ7gW6RjyswkMwGqi",
+              database_id: 149,
+              database_column_values: {
+                  user_first_name: firstName,
+                  user_last_name: lastName,
+                  user_email: email,
+                  user_booked: "Bike",
+                  at_plaza:plazaTitle,
+                  date_time:bookingDate,
+                  reservation_number:reservationNumber,
+              }
+          })
+          .then((res) => {
+          })
+          .catch((err) => console.log("err HERE: ", err.response.data));
+          ///////////////////////////////////////////////////////////////
+         
+        })
+        .catch((err) => console.log("err HERE: ", err.response.data));
       }
-      })
-      .then((res) => {
-        console.log("res.data: ", res.data);
-        userBookingDetailUpdate();
-        Toast.show("Bike value posted!", {
+      if(apiName==="T"){
+  
+        Toast.show("Booking for model plaza is currently not available", {
           duration: Toast.durations.LONG,
           position: Toast.positions.BOTTOM,
           shadow: true,
@@ -142,22 +205,19 @@ const BookSpot = ({ route, navigation }) => {
           hideOnPress: true,
           delay: 0,
         });
-      })
-      .catch((err) => console.log("err HERE: ", err.response.data));
-
+      }
+    // }else{
+    //   Toast.show("Some error occured, try again later", {
+    //     duration: Toast.durations.LONG,
+    //     position: Toast.positions.BOTTOM,
+    //     shadow: true,
+    //     animation: true,
+    //     hideOnPress: true,
+    //     delay: 0,
+    //   });
+    // }
     
-    }
-    if(apiName==="T"){
 
-      Toast.show("Bike value posted!", {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.BOTTOM,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
-    }
 
   }
 
@@ -167,9 +227,27 @@ const BookSpot = ({ route, navigation }) => {
   const [password, setPassword] = useState();
   const [userIsBooked,setUserIsBooked]=useState();
   const [userDatabaseRowId,setUserDatabaseRowId]=useState();
-  const [plazaTitle,setPlazaTitle]=useState();
-  const [spotRowId,setSpotRowId]=useState();
 
+  ////////////////////////ReservationNumberStringGenerator////////////////////////
+  const [reservationNumber,setReservationNumber]=useState("");
+  const bookingNumberPlazaName=item.bookingNumberPlazaName;
+  const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+  function generateString(length) {
+      let temp = '';
+      const charactersLength = characters.length;
+      for ( let i = 0; i < length; i++ ) {
+          temp += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+     let result = bookingNumberPlazaName.concat(temp);
+    
+      return result;
+  }
+/////////////////////////////////////////////////////////////////////////////////////////
+ 
+
+///////////////////////UserBookingUpdate///////////////////////////////
+const [userBookingUpdateState,setUserBookingUpdateState]=useState(false);
   const userBookingDetailUpdate=()=>{
 
     axios
@@ -183,16 +261,18 @@ const BookSpot = ({ route, navigation }) => {
         user_lastName: lastName,
         user_email: email,
         user_password: password,
-        user_is_booked:true, 
+        user_is_booked:true,
+        reservation_number:reservationNumber,
       },
     })
     .then((res) => {
       console.log("res.data: ", res.data);
+      setUserBookingUpdateState(true);
     })
-    .catch((err) => console.log("err: ", err.response.data));
+    .catch((err) => console.log("err eheherer: ", err.response.data));
   
   }
-
+///////////////////////////////////////////////////////////////////
 
       
   const ifUserIsBooked = () => {
@@ -239,8 +319,11 @@ const BookSpot = ({ route, navigation }) => {
   const dataBaseRowIdCar=item.dataBaseRowIdCar;
 
   const postCarData=()=>{
+  
 
+    // if(userBookingUpdateState===true){
 
+      
     if(apiName==="F"){
 
 
@@ -256,8 +339,7 @@ const BookSpot = ({ route, navigation }) => {
       })
       .then((res) => {
         console.log("res.data: ", res.data);
-        userBookingDetailUpdate();
-        Toast.show("Car value posted!", {
+        Toast.show("Car Booked, For more detail go to Trips", {
           duration: Toast.durations.LONG,
           position: Toast.positions.BOTTOM,
           shadow: true,
@@ -265,6 +347,43 @@ const BookSpot = ({ route, navigation }) => {
           hideOnPress: true,
           delay: 0,
         });
+        const bookingDate= res.data.date;
+        const plazaInfo = [
+          {
+            title:plazaTitle,
+            databaseId:dataBaseIdCar,
+            databaseRowId:dataBaseRowIdCar,
+            value:carTempValue,
+            vehicle:"car",
+            date:bookingDate,
+            reservation_number:reservationNumber,
+          }
+        ]
+        const jsonValue = JSON.stringify(plazaInfo);
+        AsyncStorage.setItem("plazaInfo", jsonValue);
+        console.log("sent", jsonValue);
+        userBookingDetailUpdate();
+           /////////////////activityupdate////////////////////
+           axios
+           .post("https://fingobox.com/api/database/row", {
+               app_id: 156,
+               app_token: "3k09fXJ7gW6RjyswkMwGqi",
+               database_id: 149,
+               database_column_values: {
+                   user_first_name: firstName,
+                   user_last_name: lastName,
+                   user_email: email,
+                   user_booked: "Car",
+                   at_plaza:plazaTitle,
+                   date_time:bookingDate,
+                   reservation_number:reservationNumber,
+               }
+           })
+           .then((res) => {
+           })
+           .catch((err) => console.log("err HERE: ", err.response.data));
+           ///////////////////////////////////////////////////////////////
+          
       })
       .catch((err) => console.log("err hhhHERE: ", err.response.data));
 
@@ -272,7 +391,7 @@ const BookSpot = ({ route, navigation }) => {
     }
     if(apiName==="T"){
 
-      Toast.show("Car value posted!", {
+      Toast.show("Booking for model plaza is currently not available", {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
         shadow: true,
@@ -281,6 +400,20 @@ const BookSpot = ({ route, navigation }) => {
         delay: 0,
       });
     }
+
+    // }else{
+    //   Toast.show("Some error occured, try again later", {
+    //     duration: Toast.durations.LONG,
+    //     position: Toast.positions.BOTTOM,
+    //     shadow: true,
+    //     animation: true,
+    //     hideOnPress: true,
+    //     delay: 0,
+    //   });
+    // }
+    
+
+
 
   }
 
@@ -331,7 +464,7 @@ const BookSpot = ({ route, navigation }) => {
         if (bikeVal === null) {
           //console.log('bike string is empty');
         } else {
-
+          setBikeSpot(parseInt(bikeVal));
           //console.log('bike string is NOT empty');
          
         }
@@ -361,9 +494,9 @@ const BookSpot = ({ route, navigation }) => {
          if(apiName==="T"){         
           const carVal = (res.data.feeds[0].field2);
           if (carVal === null) {
-            console.log('Car string is empty');
+            //console.log('Car string is empty');
           } else {
-            console.log('car string is NOT empty');
+            //console.log('car string is NOT empty');
             setCarSpot(parseInt(carVal));
           }
          }      
@@ -384,7 +517,7 @@ const BookSpot = ({ route, navigation }) => {
           <View style={styles.addressContainer}>
             <Ionicons name="location" size={18} color="black" />
             <Text style={{ fontSize: 15, fontWeight: "300", left: 5 }}>
-              Example text for location address
+              {item.address}
             </Text> 
           </View>
           <View style={styles.addressContainer}>
@@ -400,8 +533,7 @@ const BookSpot = ({ route, navigation }) => {
           <View style={styles.descriptionContainer}>
             <Text style={{ fontSize: 20, fontWeight: "500" }}>Description</Text>
             <Text style={styles.descriptionText}>{item.description}</Text>
-            <Text style={styles.descriptionText}>{bikeTempValue}</Text>
-            <Text style={styles.descriptionText}>{carTempValue}</Text>
+            <Text style={styles.descriptionText}>{reservationNumber}</Text>
        
             
           </View>
@@ -540,9 +672,15 @@ const BookSpot = ({ route, navigation }) => {
             }}
           >
             <Ionicons name="information" size={18} color="black" />
+            <TouchableOpacity
+            onPress={()=>{
+              navigation.dispatch(StackActions.replace("Trips"));
+            }}
+            >
             <Text style={{ fontSize: 15, fontWeight: "300", left: 5 }}>
               Free Cancellation
             </Text>
+            </TouchableOpacity>
           </View>
           <Separator />
           <TouchableOpacity
