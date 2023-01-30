@@ -108,6 +108,7 @@ const Register = ({ navigation }) => {
           user_email: email,
           user_password: password,
           user_is_booked:false, 
+          reservation_number:"",
         },
       })
       .then((res) => {
@@ -115,7 +116,18 @@ const Register = ({ navigation }) => {
         navigation.navigate("Login");
         setIsLoaded(true);
       })
-      .catch((err) => console.log("err: ", err.response.data));
+      .catch((err) =>{
+        setIsLoaded(true);
+        Toast.show("Invalid Email!", {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
+        console.log("login failed!");
+      });
   };
 
   return (

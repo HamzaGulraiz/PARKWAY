@@ -89,7 +89,7 @@ const Login = ({ navigation }) => {
         console.log("res.data: ", res.data);
 
         const passCheck = res.data[0].columns.user_password;
-
+     
         ////temp storage id detail/////
 
         const jsonValue = JSON.stringify(res.data);
@@ -97,14 +97,13 @@ const Login = ({ navigation }) => {
         AsyncStorage.setItem("userInfo", jsonValue);
 
         ////////////////////////////////////////
-
         if (password === passCheck) {
           console.log("login successful!");
           setIsLoaded(true);
           navigation.dispatch(StackActions.replace("Main"));
         } else {
           setIsLoaded(true);
-          Toast.show("Invalid Email or Password!!", {
+          Toast.show("Invalid Password!!", {
             duration: Toast.durations.LONG,
             position: Toast.positions.BOTTOM,
             shadow: true,
@@ -115,7 +114,18 @@ const Login = ({ navigation }) => {
           console.log("login failed!");
         }
       })
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => {
+        setIsLoaded(true);
+        Toast.show("Invalid Email!", {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.BOTTOM,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+        });
+        console.log("login failed!");
+      });
   };
 
   return (
@@ -158,7 +168,7 @@ const Login = ({ navigation }) => {
         <View style={styles.forgotPassword}>
           <TouchableOpacity
             onPress={() => {
-               navigation.navigate("Main");
+               navigation.navigate("Restore");
             }}
           >
             <Text style={styles.forgot}>Forgot your password?</Text>

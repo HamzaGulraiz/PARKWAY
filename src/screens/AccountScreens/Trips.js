@@ -7,12 +7,15 @@ import {
   StatusBar,
   Button,
   ActivityIndicator,
+  Image,
+  FlatList,
 } from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Toast from "react-native-root-toast";
+import RecentActivityFlatlist from "../../components/RecentActivityFlatlist";
 
 const Trips = (navigation) => {
   const Separator = () => <View style={styles.separator} />;
@@ -23,6 +26,7 @@ const Trips = (navigation) => {
   const [password, setPassword] = useState();
   const [userDatabaseRowId,setUserDatabaseRowId]=useState();
   const [userIsBooked,setUserIsBooked]=useState();
+  const [reservationNumber,setReservationNumber]=useState();
 
   const userBookingCancelation=()=>{   
     setIsLoaded(false); 
@@ -37,11 +41,13 @@ const Trips = (navigation) => {
         user_lastName: lastName,
         user_email: email,
         user_password: password,
-        user_is_booked:false, 
+        user_is_booked:false,
+        reservation_number:"", 
       },
     })
     .then((res) => {
       console.log("res.data: ", res.data);
+      resetSpotValue();
       Toast.show("Booking Cancelled", {
         duration: Toast.durations.LONG,
         position: Toast.positions.BOTTOM,
@@ -57,6 +63,52 @@ const Trips = (navigation) => {
     
   }
 
+  const resetSpotValue=()=>{
+
+    if(vehicle==="bike"){
+      axios
+      .put("https://fingobox.com/api/database/row", {
+        app_id: 150,
+        app_token: "V1aBoEr8U1Kti2PkYkbebN",
+        database_id: databaseId,
+        database_row_id:databaseRowId,
+        database_column_values: {
+        bike:bookingValue+1
+      }
+      })
+      .then((res) => {
+        console.log("res.data hereee: ",res.data.date); 
+      })
+      .catch((err) => console.log("err", err.response.data));
+    }
+    if(vehicle==="car"){
+      axios
+      .put("https://fingobox.com/api/database/row", {
+        app_id: 150,
+        app_token: "V1aBoEr8U1Kti2PkYkbebN",
+        database_id: databaseId,
+        database_row_id:databaseRowId,
+        database_column_values: {
+        car:bookingValue+1
+      }
+      })
+      .then((res) => {
+        console.log("res.data hereee: ",res.data.date); 
+      })
+      .catch((err) => console.log("err", err.response.data));
+    }
+
+  }
+
+  const [plazaTitle,setPlazaTitle]=useState();
+  const [databaseId,setDatabaseID]=useState();
+  const [databaseRowId,setDatabaseRowId]=useState();
+  const [bookingValue,setBookingValue]=useState();
+  const [vehicle,setVehicle]=useState();
+  const [bookingDate,setBookingDate]=useState();
+
+ 
+
   const asyncGet=()=>{
 
     AsyncStorage.getItem("userInfo").then((value) => {
@@ -68,6 +120,17 @@ const Trips = (navigation) => {
       setUserDatabaseRowId(userObj[0].database_row_id);
     })
 
+    AsyncStorage.getItem("plazaInfo").then((value) => {
+      let userObj = JSON.parse(value);
+     // console.log(userObj[0].bike);
+      setPlazaTitle(userObj[0].title);
+      setDatabaseID(userObj[0].databaseId);
+      setDatabaseRowId(userObj[0].databaseRowId);
+      setBookingValue(userObj[0].value);
+      setVehicle(userObj[0].vehicle);
+      setBookingDate(userObj[0].date);
+      setReservationNumber(userObj[0].reservation_number);
+    });
   }
 
   const bookCheck= new Promise((resolve,reject)=>{
@@ -93,10 +156,7 @@ console.log(error);
   })
     
 
-      // useEffect(() => {
-     
-      
-      // }, []);
+  
 
   
   const [isLoaded, setIsLoaded] = useState(true);
@@ -112,14 +172,6 @@ console.log(error);
        console.log(state);       
         if(state===false){
           setUserIsBooked(false);
-          Toast.show("no active trip", {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.BOTTOM,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          });
         }
         else{
           setUserIsBooked(true); 
@@ -128,6 +180,9 @@ console.log(error);
          .catch((err) => console.log(res.response.data)); 
                 
   };
+
+
+
 
 
 
@@ -141,9 +196,21 @@ console.log(error);
       {userIsBooked ? 
       <>
       <View style={styles.currentTripCard}>
-      <Text style={styles.cardStyleText}>Mr : {firstName}</Text>
-      <Text style={styles.cardStyleText}>you have booked</Text>
-      <Text style={styles.cardStyleText}>At</Text>
+      <View>
+      <Text style={styles.cardStyleText}>{firstName} {lastName}</Text>
+      <Text style={styles.cardStyleText}>You have booked {vehicle}</Text>
+      <Text style={styles.cardStyleText}>{plazaTitle}</Text>
+      <Text style={styles.cardStyleText}>Reservation #: {reservationNumber}</Text>
+      </View>
+      <View>
+      {vehicle==="bike"?
+      <Image style={styles.image} source={require("../../asset/bike.png")} />
+      :
+      <Image style={styles.image} source={require("../../asset/car.png")} />  
+      }     
+      </View>
+      </View>
+      <View style={styles.bookingButtonContainer}>
       <TouchableOpacity
             style={styles.bookingButton}
             onPress={() => 
@@ -159,30 +226,26 @@ console.log(error);
             )}
            
           </TouchableOpacity>
-      </View>
+          </View>
       </>
       :
       <View style={styles.currentTripCard}>
         <Text style={styles.noTripActive}>There is no trip currently active</Text>
         <View style={styles.reloadButtonContainer}>
-        {/* {isLoaded ? (
-               <Button
-               title="Reload"
-               onPress={() => ifUserIsBooked()}
-             />
-            ) : (
-              <ActivityIndicator size="small" color="black" />
-            )} */}
-      
       </View>
       </View>
       }
-
+       <Separator />
+      <View style={styles.flatlistContainer} >
+      <RecentActivityFlatlist/>      
+      </View>
       </SafeAreaView>
       <ExpoStatusBar style="auto" />
     </>
   );
 };
+
+
 
 export default Trips;
 
@@ -206,11 +269,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   currentTripCard:{
-    margin:10,
-    padding:60,
-    borderColor:"grey",
-    borderWidth:1,
-    borderRadius:5,
+    flexDirection:"row",
+    justifyContent:"space-around",
+    margin:5,
+    padding:10,
+   
   },
   noTripActive:{
     fontSize:20,
@@ -224,11 +287,25 @@ const styles = StyleSheet.create({
     fontSize:20,
     fontWeight:"500",
   },
+  bookingButtonContainer:{
+    margin:5,
+  },
   bookingButton: {
     backgroundColor: "#62757f",
-    padding: 10,
+    padding:10,
+    margin:10,
     borderRadius: 5,
     alignItems: "center",
     justifyContent: "center",
   },
+  image: {
+    width: 60,
+    height: 60,
+  },
+  flatlistContainer:{
+    flex:1,
+    
+  },
+
+
 });

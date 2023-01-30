@@ -26,18 +26,25 @@ function RestorePassword({ navigation }) {
           />
           <Text style={styles.text}>Restore Password</Text>
         </View>
-
+        <View style={{ marginLeft: 50 }}>
+          <Text>You will receive email with password reset link</Text>
+        </View>
         <TextInput
           style={styles.input}
           // onChangeText={onChangeNumber}
           // value={number}
           placeholder="Email"
         />
-        <View style={{ marginLeft: 50 }}>
-          <Text>You will receive email with password reset link</Text>
-        </View>
+        
         <View style={styles.buttonContainer}>
-          <Button onPress={() => {}} title="Register" color="#62757f" />
+        <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => {
+             
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 16 }}>Submit</Text>
+          </TouchableOpacity>
           <View style={styles.row}>
             <Text>Already have an account </Text>
             <TouchableOpacity
@@ -63,14 +70,21 @@ const styles = StyleSheet.create({
   image: { height: 130, width: 130 },
   formContainer: { justifyContent: "center" },
   input: {
-    height: 40,
-    margin: 12,
     borderWidth: 1,
-    padding: 10,
+    margin:20,
+    padding:10,
     borderRadius: 15,
   },
+  loginButton: {
+    backgroundColor: "#62757f",
+    padding: 8,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   buttonContainer: {
-    padding: 30,
+    margin:10,
+    padding: 5,
   },
 
   row: {

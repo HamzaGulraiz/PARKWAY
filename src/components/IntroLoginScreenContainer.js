@@ -58,7 +58,7 @@ function IntroLoginScreenContainer() {
           component={MainContainerScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          options={{ headerShown: true }}
           name="SearchScreen"
           component={SearchScreen}
         />       
@@ -118,6 +118,7 @@ function IntroLoginScreenContainer() {
           name="BookSpot"
           component={BookSpot}
         />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
