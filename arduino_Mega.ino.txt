@@ -1,0 +1,202 @@
+//Arduino to NodeMCU Lib
+#include <SoftwareSerial.h>
+#include <ArduinoJson.h>
+
+//Initialise Arduino to NodeMCU (2=Rx white wire & 3=Tx black wire)
+SoftwareSerial nodemcu(2, 3);
+
+
+
+int iR1=5;
+int ledR1=48;
+int ledG1=49;
+int xIr1;
+/////////////////
+int iR2=6;
+int ledR2=46;
+int ledG2=47;
+int xIr2;
+////////////////////
+int iR3=7;
+int ledR3=44;
+int ledG3=45;
+int xIr3;
+///////////////////
+int iR4=8;
+int ledR4=42;
+int ledG4=43;
+int xIr4;
+/////////////////////
+int iR5=9;
+int ledR5=40;
+int ledG5=41;
+int xIr5;
+
+int S1=0, S2=0, S3=0, S4=0, S5=0;
+
+int Bike,Car;
+
+void setup() {
+
+ // put your setup code here, to run once:
+  
+
+  Serial.begin(9600);
+  nodemcu.begin(9600);
+
+  Serial.println("Program started");
+ 
+  pinMode(iR1,INPUT);
+  pinMode(ledG1,OUTPUT);
+  pinMode(ledR1,OUTPUT);
+  ///////////////////////
+  pinMode(iR2,INPUT);
+  pinMode(ledG2,OUTPUT);
+  pinMode(ledR2,OUTPUT);
+  ///////////////////////
+  pinMode(iR3,INPUT);
+  pinMode(ledG3,OUTPUT);
+  pinMode(ledR3,OUTPUT);
+  ///////////////////////
+  pinMode(iR4,INPUT);
+  pinMode(ledG4,OUTPUT);
+  pinMode(ledR4,OUTPUT);
+  ////////////////////////
+  pinMode(iR5,INPUT);
+  pinMode(ledG5,OUTPUT);
+  pinMode(ledR5,OUTPUT);
+
+  Read_Sensor();
+ 
+
+}
+
+void loop() {
+
+ 
+ StaticJsonDocument<1000> doc;
+ //// to obtain parking space////
+ Read_Sensor();
+ Bike_Count();
+ Car_Count();
+
+  if(S1==1){
+      digitalWrite(ledG1,LOW);
+      digitalWrite(ledR1,HIGH);
+      
+     
+    }
+    else{
+      digitalWrite(ledR1,LOW);
+      digitalWrite(ledG1,HIGH);
+     
+    }
+ 
+  if(S2==1){
+      digitalWrite(ledG2,LOW);
+      digitalWrite(ledR2,HIGH);
+   
+    }
+    else{
+      digitalWrite(ledR2,LOW);
+      digitalWrite(ledG2,HIGH);
+    
+    }
+
+  if(S3==1){
+      digitalWrite(ledG3,LOW);
+      digitalWrite(ledR3,HIGH);
+     
+    }
+    else{
+      digitalWrite(ledR3,LOW);
+      digitalWrite(ledG3,HIGH);
+    }  
+
+  if(S4==1){
+      digitalWrite(ledG4,LOW);
+      digitalWrite(ledR4,HIGH);
+      
+    }
+    else{
+      digitalWrite(ledR4,LOW);
+      digitalWrite(ledG4,HIGH);
+      
+    }
+
+   if(S5==1){
+      digitalWrite(ledG5,LOW);
+      digitalWrite(ledR5,HIGH);
+     
+    }
+    else{
+      digitalWrite(ledR5,LOW);
+      digitalWrite(ledG5,HIGH);
+      
+    } 
+
+  //Assign collected data to JSON Object
+  doc["Bike"] = Bike;
+  doc["Car"] = Car;
+
+
+   //Send data to NodeMCU
+  serializeJson(doc, nodemcu);
+
+   
+ delay(500);
+}
+
+void Read_Sensor(){
+S1=0, S2=0, S3=0, S4=0, S5=0;
+
+
+if(digitalRead(iR1) == 0){S1=1;}
+if(digitalRead(iR2) == 0){S2=1;}
+if(digitalRead(iR3) == 0){S3=1;}
+if(digitalRead(iR4) == 0){S4=1;}
+if(digitalRead(iR5) == 0){S5=1;}  
+}
+
+void Bike_Count(){
+
+  if(S1==1&&S2==1){
+  Bike=2;
+  }
+  if(S1==1&&S2==0){
+  Bike=1;
+    }
+   if(S1==0&&S2==1){
+   Bike=1;
+    }
+     if(S1==0&&S2==0){
+   Bike=0;
+    }
+  }
+  void Car_Count(){
+
+  if(S3==0&&S4==0&&S5==0){
+  Car=0;
+  }
+  if(S3==0&&S4==0&&S5==1){
+  Car=1;
+    }
+   if(S3==0&&S4==1&&S5==0){
+    Car=1;
+    }
+    if(S3==0&&S4==1&&S5==1){
+  Car=2;
+  }
+  if(S3==1&&S4==0&&S5==0){
+  Car=1;
+  }
+  if(S3==1&&S4==0&&S5==1){
+  Car=1;
+  }
+  if(S3==1&&S4==1&&S5==0){
+  Car=2;
+  }
+  if(S3==1&&S4==1&&S5==1){
+  Car=3;
+  }
+  }
