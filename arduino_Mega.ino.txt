@@ -2,10 +2,10 @@
 #include <SoftwareSerial.h>
 #include <ArduinoJson.h>
 
-//Initialise Arduino to NodeMCU (2=Rx white wire & 3=Tx black wire)
+///////Initialise Arduino to NodeMCU (2=Rx white wire & 3=Tx black wire)
 SoftwareSerial nodemcu(2, 3);
 
-
+   
 
 int iR1=5;
 int ledR1=48;
